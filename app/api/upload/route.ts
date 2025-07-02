@@ -1,3 +1,5 @@
+// this route is made just to upload files to imagekit
+
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { db } from "@/lib/db";
@@ -7,7 +9,7 @@ export async function POST(request: NextRequest) {
   try {
     const { userId } = await auth();
     if (!userId) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     // Parse request body
@@ -16,12 +18,12 @@ export async function POST(request: NextRequest) {
 
     // Verify the user is uploading to their own account
     if (bodyUserId !== userId) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     // Validate ImageKit response
     if (!imagekit || !imagekit.url) {
-      return NextResponse.json(
+    return NextResponse.json(
         { error: "Invalid file upload data" },
         { status: 400 }
       );
@@ -46,6 +48,7 @@ export async function POST(request: NextRequest) {
     const [newFile] = await db.insert(files).values(fileData).returning();
 
     return NextResponse.json(newFile);
+    
   } catch (error) {
     console.error("Error saving file:", error);
     return NextResponse.json(
