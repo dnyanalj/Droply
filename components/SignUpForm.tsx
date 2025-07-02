@@ -239,7 +239,7 @@ export default function SignUpForm() {
                   isIconOnly
                   variant="light"
                   size="sm"
-                  onClick={() => setShowPassword(!showPassword)}
+                  onPress={() => setShowPassword(!showPassword)}
                   type="button"
                 >
                   {showPassword ? (
@@ -273,7 +273,7 @@ export default function SignUpForm() {
                   isIconOnly
                   variant="light"
                   size="sm"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  onPress={() => setShowConfirmPassword(!showConfirmPassword)}
                   type="button"
                 >
                   {showConfirmPassword ? (
